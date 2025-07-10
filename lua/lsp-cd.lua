@@ -1,12 +1,31 @@
 local M = {}
 
+local should_change_dir = function(opts, name)
+  if opts.ignore and vim.tbl_contains(opts.ignore or {}, name) then
+    return false
+  elseif opts.only then
+    if vim.tbl_contains(opts.only or {}, name) then
+      return true
+    end
+    return false
+  else
+    return true
+  end
+end
+
 M.setup = function(opts)
+  opts = opts or {}
+  vim.validate('ignore', opts.ignore, { 'table' }, true)
+  vim.validate('only', opts.only, { 'table' }, true)
+
   vim.api.nvim_create_autocmd({ 'LspAttach', 'BufEnter' }, {
     group = vim.api.nvim_create_augroup('lsp-cd', {}),
     callback = function(o)
       local clients = vim.lsp.get_clients { bufnr = o.buf }
       for _, client in pairs(clients) do
-        vim.cmd.lcd client.root_dir
+        if should_change_dir(opts, client.name) then
+          vim.cmd.lcd(client.root_dir)
+        end
       end
     end,
   })
