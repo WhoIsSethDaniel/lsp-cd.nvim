@@ -35,3 +35,8 @@ require('lsp-cd').setup {
   notify_on_dir_change = true,
 }
 ```
+
+## Suggestions / Complaints / Help
+
+Please feel free to start a [discussion](https://github.com/WhoIsSethDaniel/lsp-cd.nvim/discussions) or
+file a [bug report](https://github.com/WhoIsSethDaniel/lsp-cd.nvim/issues).
