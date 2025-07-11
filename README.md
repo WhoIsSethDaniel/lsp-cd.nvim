@@ -22,10 +22,16 @@ require('lsp-cd').setup {
   --
   -- 'ignore' is a list of client names that should never be used for
   -- changing the directory.
+  -- Default: empty table
   ignore = { 'gopls' },
 
   -- only use the clients in this list for determining the directory
   -- that should be changed.
+  -- Default: empty table
   only = { 'lua_ls' },
+
+  -- notify when this plugin changes the directory.
+  -- Default: false
+  notify_on_dir_change = true,
 }
 ```

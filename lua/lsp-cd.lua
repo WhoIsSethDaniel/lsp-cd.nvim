@@ -15,8 +15,9 @@ end
 
 M.setup = function(opts)
   opts = opts or {}
-  vim.validate('ignore', opts.ignore, { 'table' }, true)
-  vim.validate('only', opts.only, { 'table' }, true)
+  vim.validate('ignore', opts.ignore, 'table', true)
+  vim.validate('only', opts.only, 'table', true)
+  vim.validate('notify_on_dir_change', opts.notify_on_dir_change, 'boolean', true)
 
   vim.api.nvim_create_autocmd({ 'LspAttach', 'BufEnter' }, {
     group = vim.api.nvim_create_augroup('lsp-cd', {}),
@@ -24,6 +25,9 @@ M.setup = function(opts)
       local clients = vim.lsp.get_clients { bufnr = o.buf }
       for _, client in pairs(clients) do
         if should_change_dir(opts, client.name) then
+          if opts.notify_on_dir_change then
+            vim.notify(string.format('[lsp-cd] changed directory to %s', client.root_dir), vim.log.levels.INFO)
+          end
           vim.cmd.lcd(client.root_dir)
         end
       end
