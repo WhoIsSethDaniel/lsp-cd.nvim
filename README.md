@@ -1,7 +1,7 @@
 # lsp-cd.nvim
 
-Automatically change to the root directory of a project for a buffer if it
-has a language server attached.
+Automatically change to the root directory of a project for a window if its
+buffer has a language server attached.
 
 ## Requirements
 
