@@ -1,6 +1,6 @@
 local M = {}
 
-local should_change_dir = function(opts, client)
+local should_change_dir = function(client, opts)
   if vim.fn.getcwd() == client.root_dir then
     return false
   end
@@ -27,7 +27,7 @@ M.setup = function(opts)
     callback = function(o)
       local clients = vim.lsp.get_clients { bufnr = o.buf }
       for _, client in pairs(clients) do
-        if should_change_dir(opts, client) then
+        if should_change_dir(client, opts) then
           if opts.notify_on_dir_change then
             vim.notify(string.format('[lsp-cd] changed directory to %s', client.root_dir), vim.log.levels.INFO)
           end
