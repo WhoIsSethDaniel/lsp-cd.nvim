@@ -30,9 +30,16 @@ require('lsp-cd').setup {
   -- Default: empty table
   only = { 'lua_ls' },
 
-  -- notify when this plugin changes the directory.
-  -- Default: false
-  notify_on_dir_change = true,
+  notify = {
+    -- notify when this plugin changes the directory.
+    -- Default: false
+    on_dir_change = true,
+
+    -- notify when the plugin would have changed directory,
+    -- but the client's root directory is nil.
+    -- Default: false
+    on_nil_root_dir = true,
+  },
 }
 ```
 
