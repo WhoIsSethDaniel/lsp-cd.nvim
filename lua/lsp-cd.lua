@@ -6,14 +6,14 @@ local should_change_dir = function(client, opts)
   end
   if opts.ignore and vim.tbl_contains(opts.ignore, client.name) then
     return false
-  elseif opts.only then
+  end
+  if opts.only then
     if vim.tbl_contains(opts.only or {}, client.name) then
       return true
     end
     return false
-  else
-    return true
   end
+  return true
 end
 
 M.setup = function(opts)
