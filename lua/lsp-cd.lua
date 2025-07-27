@@ -36,7 +36,7 @@ M.setup = function(opts)
             end
             vim.cmd.lcd(client.root_dir)
           elseif opts.notify.on_nil_root_dir then
-            vim.notify(string.format('[lsp-cd] %s root_dir is nil', client.name), vim.log.levels.ERROR)
+            vim.notify(string.format('[lsp-cd] %s root_dir is nil', client.name), vim.log.levels.WARN)
           end
         end
       end
